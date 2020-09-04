@@ -19,7 +19,6 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".PlayerService"
-            android:enabled="false"
             android:exported="false"></service>
 
         <activity android:name=".MainActivity">

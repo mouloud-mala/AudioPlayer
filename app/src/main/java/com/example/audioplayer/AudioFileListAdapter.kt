@@ -11,7 +11,8 @@ import com.example.audioplayer.databinding.AudioFileItemBinding
 
 class AudioFileListAdapter(
     private val lifecycleOwner: LifecycleOwner,
-    private val onClickListener: (Int) -> Unit
+    private val onClickListener: (Int) -> Unit,
+    private val onClickListenerPlayStop: () -> Unit
 ): ListAdapter<AudioFile, AudioFileListAdapter.ViewHolder>(
     AudioFile.DIFF_CB
 ) {
@@ -39,11 +40,16 @@ class AudioFileListAdapter(
         binding: AudioFileItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         private val viewModel = MutableLiveData<AudioFile>()
+        private val currentSong = MutableLiveData<AudioFile>()
         private var index = -1
         init {
             binding.audioFileVM = viewModel
             binding.lifecycleOwner = lifecycleOwner
-            binding.listSong.setOnClickListener { onClickListener(index) }
+            binding.listSong.setOnClickListener {
+                if (index >= 0) onClickListener(index) }
+            binding.playButton.setOnClickListener {
+                onClickListenerPlayStop()
+            }
         }
         fun bind(audioFile: AudioFile, position: Int) {
             viewModel.postValue(audioFile)

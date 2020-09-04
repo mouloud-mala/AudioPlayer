@@ -15,13 +15,17 @@ class PlayerServiceWrapper(
     private val playerService: PlayerService?
         get() = serviceHolder.get()
 
-    fun play(path: Uri) {
-        playerService?.play(path)
-        toast(R.string.mediaPlaying)
+    fun play(audioFile: AudioFile) {
+        playerService?.play(audioFile.filePath)
+        if (playerService != null)
+            viewModel.currentSong.postValue(audioFile)
+        else
+            toast(R.string.mediaPlaying)
     }
 
     fun playPause() {
         playerService?.playPause()
+        viewModel.isPlaying
     }
 
     fun stop() {

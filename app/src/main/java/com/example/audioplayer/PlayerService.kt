@@ -10,13 +10,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import kotlinx.android.synthetic.main.audio_file_item.*
 
 class PlayerService : Service() {
 
     private val binder: android.os.Binder = Binder()
     private var mediaPlayer: MediaPlayer? = null
     private var pause: Boolean = false
-    private var totalTime: Int = 0
+    //private var totalTime: Int = 0
     var onErrorListener =
         MediaPlayer.OnErrorListener { _, _, _ -> false }
         set(value) {
@@ -39,10 +40,8 @@ class PlayerService : Service() {
     fun play(path: Uri) {
         mediaPlayer =
             MediaPlayer.create(applicationContext, path)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.setVolume(0.5f, 0.5f)
-        totalTime = mediaPlayer?.duration!!
-        mediaPlayer?.start()
+        //totalTime = mediaPlayer?.duration!!
+        //mediaPlayer?.start()
 
     }
 
@@ -52,9 +51,10 @@ class PlayerService : Service() {
             pause = true
             Toast.makeText(this, "media pause", Toast.LENGTH_SHORT).show()
         } else {
-            mediaPlayer?.seekTo(mediaPlayer!!.currentPosition)
+            //mediaPlayer?.seekTo(mediaPlayer!!.currentPosition)
             mediaPlayer?.start()
             pause = false
+
             Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
         }
     }

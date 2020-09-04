@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.audioplayer.databinding.FragmentAudioFileListBinding
+import kotlinx.android.synthetic.main.audio_file_item.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,8 +37,15 @@ class AudioFileListFragment : Fragment() {
         binding.audioFileList.layoutManager =
             LinearLayoutManager(binding.root.context)
 
-        val adapter = AudioFileListAdapter(viewLifecycleOwner) {(requireActivity()as MainActivity).playerService.play(
-            viewModel.audioFiles.value!![it].filePath)}
+        val activity = (requireActivity()as MainActivity)
+
+        val adapter = AudioFileListAdapter(viewLifecycleOwner,  {
+            activity.playerService.play(viewModel.audioFiles.value!![it])
+            //activity.playerService.stop()
+        }) {
+            activity.playerService.playPause()
+        }
+
 
         viewModel.audioFiles
             .observe(viewLifecycleOwner, adapter::submitList)
