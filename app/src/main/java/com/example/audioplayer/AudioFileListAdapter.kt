@@ -50,6 +50,7 @@ class AudioFileListAdapter(
             binding.playButton.setOnClickListener {
                 onClickListenerPlayStop()
             }
+            binding.currentSong = currentSong
         }
         fun bind(audioFile: AudioFile, position: Int) {
             viewModel.postValue(audioFile)

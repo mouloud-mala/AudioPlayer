@@ -40,8 +40,7 @@ class PlayerService : Service() {
     fun play(path: Uri) {
         mediaPlayer =
             MediaPlayer.create(applicationContext, path)
-        //totalTime = mediaPlayer?.duration!!
-        //mediaPlayer?.start()
+        mediaPlayer?.start()
 
     }
 
@@ -49,13 +48,10 @@ class PlayerService : Service() {
         if (isPlaying) {
             mediaPlayer?.pause()
             pause = true
-            Toast.makeText(this, "media pause", Toast.LENGTH_SHORT).show()
         } else {
-            //mediaPlayer?.seekTo(mediaPlayer!!.currentPosition)
             mediaPlayer?.start()
             pause = false
 
-            Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
         }
     }
 

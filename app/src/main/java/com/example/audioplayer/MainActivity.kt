@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -17,6 +18,8 @@ import java.util.concurrent.atomic.AtomicReference
 
 class MainActivity : AppCompatActivity() {
     private val dialog = AskPermissionsDialog(::requestPerm);
+
+    private val viewModel by viewModels<AudioFilesViewModel>()
 
     private val hasPermission
 
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         AtomicReference(null)
 
     val playerService by lazy {
-        PlayerServiceWrapper(this, AudioFilesViewModel(), actualService)
+        PlayerServiceWrapper(this, viewModel, actualService)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

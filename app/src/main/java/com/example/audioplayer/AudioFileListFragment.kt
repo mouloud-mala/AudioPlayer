@@ -39,7 +39,7 @@ class AudioFileListFragment : Fragment() {
 
         val activity = (requireActivity()as MainActivity)
 
-        val adapter = AudioFileListAdapter(viewLifecycleOwner,  {
+        val adapter = AudioFileListAdapter(viewLifecycleOwner, {
             activity.playerService.play(viewModel.audioFiles.value!![it])
             //activity.playerService.stop()
         }) {
@@ -99,6 +99,7 @@ class AudioFileListFragment : Fragment() {
                 audioList += AudioFile(id, title, artist, album, duration, contentUri)
             }
         }
+
         viewModel.audioFiles.postValue(audioList)
     }
 }
